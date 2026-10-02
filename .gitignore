@@ -1,0 +1,13 @@
+.env
+__pycache__/
+*.py[cod]
+*.sqlite3
+.pytest_cache/
+.coverage
+htmlcov/
+.ruff_cache/
+.venv/
+venv/
+staticfiles/
+var/
+*.joblib

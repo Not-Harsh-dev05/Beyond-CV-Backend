@@ -1,0 +1,11 @@
+college_tier,employer_brand,competence
+TIER_1,Large enterprise,68
+TIER_1,Startup,65
+TIER_2,Large enterprise,62
+TIER_2,Startup,58
+TIER_3,Large enterprise,56
+TIER_3,Startup,52
+UNKNOWN,Unknown,50
+TIER_1,Unknown,64
+TIER_2,Unknown,58
+TIER_3,Unknown,53
