@@ -8,95 +8,153 @@ BeyondCV
 </p>
 
 <p align="center">
-  BeyondCV is an evidence-based talent discovery platform designed to help recruiters discover high-potential candidates who may be overlooked by traditional résumé screening.
+  An evidence-based talent discovery platform that finds high-potential candidates that résumé screening overlooks.
 </p>
 
 <p align="center">
   Built for <strong>Build For Bharat 2.0</strong> · Problem Statement: <strong>Intelligent Talent and Workforce Ecosystem</strong>
 </p>
 
-🎯 The Problem
-Traditional hiring often depends heavily on:
+<p align="center">
+  <a href="#the-problem">The Problem</a> •
+  <a href="#our-solution">Our Solution</a> •
+  <a href="#how-it-works">How It Works</a> •
+  <a href="#key-features">Features</a> •
+  <a href="#tech-stack">Tech Stack</a> •
+  <a href="#impact">Impact</a>
+</p>
+
+🏆 The Idea
+BeyondCV is designed around a simple principle:
+A résumé tells you what someone claims. Their work shows you what they can actually do.
+
+Traditional hiring systems often rely heavily on college tier, previous employer brand and keyword-optimised résumés. BeyondCV adds an evidence layer by analysing publicly verifiable signals such as GitHub projects, Kaggle performance and certificates.
+The platform separates demonstrated competence from pedigree, allowing recruiters to discover candidates whose actual ability is stronger than their traditional résumé signals suggest.
+The Problem
+Today's hiring funnel runs heavily on pedigree signals:
 - College tier
 - Previous employer brand
 - Résumé keywords
 - Conventional credentials
-This can create two major problems:
-1. Strong candidates can be overlooked because their institution or résumé does not carry enough pedigree.
-2. Recruiters cannot manually verify evidence at scale across GitHub, competitions, certificates, and other public sources.
-A candidate's background is not the same thing as their demonstrated ability.
-💡 Our Solution
-BeyondCV evaluates evidence of what a candidate has actually done.
-Instead of relying only on résumé claims, the platform analyses public evidence such as:
-- GitHub repositories and activity
-- Kaggle competition performance
-- NPTEL certificates
-- Coursera certificates
-The system separates demonstrated competence from pedigree.
-Competence vs. Pedigree
+This creates a gap on both sides of the market.
+🎯 Talented candidates become invisible
+A self-taught developer or a student from a Tier-3 college may have strong projects, open-source contributions and competition results, but can be filtered out before a recruiter sees the evidence.
+🔍 Recruiters cannot verify skills at scale
+A résumé claims experience, but checking GitHub repositories, competitions and certificates manually for hundreds of candidates is not realistic.
+⚖️ Bias gets embedded in screening
+Pedigree can become a proxy for ability even though it does not directly measure what a candidate can build.
+Our Solution
+BeyondCV evaluates what a candidate has actually demonstrated.
+It separates two concepts:
 	Competence	Pedigree Baseline
-Based on	Demonstrated evidence	College tier and employer brand
-Purpose	Measure what the candidate can demonstrate	Estimate the expected baseline
-Used for	Competence scoring	Baseline comparison
+Built from	Live/public evidence such as GitHub, Kaggle and verified certificates	College tier and employer brand
+Answers	“What can this person demonstrably do?”	“What would we expect from their background alone?”
 
 
 The Delta
 Delta = Competence − Pedigree Baseline
-A high positive Delta indicates that a candidate's demonstrated competence is significantly stronger than what their traditional background signals might suggest.
-This helps surface candidates who traditional screening may overlook.
-🔄 How BeyondCV Works
-Candidate Evidence
-       │
-       ▼
-Data Acquisition
-       │
-       ▼
-Data Preparation
-       │
-       ▼
-Competence Scoring
-       │
-       ├──────────────► Pedigree Baseline
-       │
-       ▼
-      Delta
-       │
-       ▼
-Role Fit Analysis
-       │
-       ▼
-Explainable Ranking
-       │
-       ▼
-Human Recruiter Decision
+A high positive Delta identifies candidates who are performing significantly above what their traditional background signals might predict.
+These are exactly the candidates traditional screening can miss.
+What Makes BeyondCV Different?
+🎓 Pedigree-blind competence scoring
+The competence score does not use college or employer information.
+College and employer information are isolated to the baseline model.
+📊 Evidence over claims
+The platform uses public evidence such as:
+- GitHub repositories
+- GitHub activity
+- Kaggle competition performance
+- NPTEL certificates
+- Coursera certificates
+🔎 Explainable scoring
+Every score is designed to expose:
+- Evidence sources
+- Score components
+- Relative weights
+- Plain-language rationale
+🔐 Consent-first
+Candidates control whether recruiters can see their information and can request deletion of their data.
+⚠️ Honest uncertainty
+Unverified evidence receives less weight, while synthetic/sample data is explicitly labelled.
+Who Is It For?
+Stakeholder	What They Get
+👨‍💻 Candidates / Students	A way to demonstrate ability through real work instead of relying only on pedigree
+🧑‍💼 Recruiters / Hiring Teams	Explainable, role-specific candidate rankings backed by evidence
+🏫 Colleges / Workforce Programs	Privacy-safe aggregate insights into skills and talent trends
+
+
+How It Works
+┌─────────────────────┐
+│   Candidate Data    │
+│ GitHub • Kaggle •   │
+│ Certificates        │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│  Data Acquisition   │
+│ Fetch + Verify      │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│  Data Preparation   │
+│ Normalize + Filter  │
+└──────────┬──────────┘
+           │
+           ▼
+┌────────────────────────────┐
+│      Analytical Layer      │
+│                            │
+│ Competence Score           │
+│ Pedigree Baseline          │
+│ Delta                      │
+│ Role Fit                   │
+└──────────┬─────────────────┘
+           │
+           ▼
+┌─────────────────────┐
+│ Explainable Ranking │
+│ + Candidate Insights│
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│ Recruiter Decision  │
+│ Human-in-the-loop   │
+└─────────────────────┘
 1. Data Acquisition
-The platform collects relevant evidence from supported public sources.
-Source	Evidence
+Candidates link public evidence and the platform collects relevant information.
+Source	Evidence Collected
 🐙 GitHub	Repositories, activity, READMEs, languages
-🏆 Kaggle	Competition leaderboard performance
-📜 NPTEL	Certificate verification
-📜 Coursera	Certificate verification
+🏆 Kaggle	Competition leaderboard position
+📜 Certificates	NPTEL and Coursera verification pages
 
 
 2. Data Preparation
-Collected evidence is prepared before scoring:
-- Tutorial-style and forked repositories can be filtered.
-- Different sources are normalised to a common scale.
-- External data can be cached with an expiry.
-- Source failures are handled without blocking the entire score.
-3. Analytical Layer
-BeyondCV calculates:
+The pipeline prepares evidence before scoring:
+- Filters forks and tutorial-style repositories
+- Normalises different sources to a common 0–100 scale
+- Caches external data with expiry
+- Reduces unnecessary third-party API requests
+- Handles source failures gracefully
+3. Analytical Approach
 Competence Score
-A weighted combination of evidence-source scores, with stronger ownership evidence receiving greater weight.
+A weighted blend of evidence-source scores.
+Proven ownership evidence receives higher weight than unproven evidence, with a small bonus for substantive projects using semantic analysis with sentence embeddings.
 Pedigree Baseline
-A regression-based baseline using college tier and employer brand.
+A regression model trained only on:
+- College tier
+- Employer brand
 Delta
 Delta = Competence − Pedigree Baseline
 Role Fit
-Measures how much of a target role's required skill set appears in the candidate's evidence.
+Measures how many skills required by a job appear in the candidate's evidence.
 Ranking
-Combines role fit and Delta while keeping the reasoning explainable.
-⭐ Key Features
+Candidate ranking combines:
+Role Fit + Delta
+while keeping the reasoning explainable.
+🔥 Key Features
 - 🧠 Evidence-based candidate scoring
 - 🐙 GitHub evidence analysis
 - 🏆 Kaggle performance analysis
@@ -106,13 +164,13 @@ Combines role fit and Delta while keeping the reasoning explainable.
 - 🎯 Role-specific candidate ranking
 - 🔐 GitHub ownership verification
 - 🤝 Candidate consent controls
-- 🗑️ Data deletion support
-- 🔎 Explainable scoring
+- 🗑️ Full data deletion
 - 🕵️ Privacy-preserving aggregate insights
-- 🛡️ Protection against unsafe third-party fetching
-- ♻️ Graceful handling of external-source failures
+- 🛡️ Protection against server-side request forgery
+- ♻️ Graceful third-party source failure handling
+- 🔍 Explainable scoring instead of a black-box score
 🧮 Example
-Consider two candidates applying for a Backend Engineer role.
+Imagine two candidates applying for a Backend Engineer role.
 Candidate A
 - Tier-1 college
 - Strong conventional résumé
@@ -121,122 +179,177 @@ Candidate B
 - Tier-3 college
 - Multiple well-documented Django projects
 - Strong GitHub evidence
-- Strong competition performance
-A conventional résumé filter may favour Candidate A.
-BeyondCV instead evaluates the evidence.
-If Candidate B demonstrates stronger role fit and a high positive Delta, the platform can surface Candidate B and explain which evidence contributed to the result.
-🔐 Fairness, Privacy & Ethics
-BeyondCV is designed as a decision-support system, not an autonomous hiring system.
-Pedigree Isolation
-College and employer information are separated from the competence score and used only for the baseline comparison.
-Consent
-Candidates should control whether their information is available to recruiters.
-Explainability
-Scores should be supported by evidence and understandable reasoning rather than being an unexplained black box.
-Privacy
-Aggregate insights should avoid exposing individual candidates.
-Human in the Loop
-The recruiter remains responsible for the final hiring decision.
-BeyondCV widens the pool of candidates a recruiter considers. It does not make the hiring decision by itself.
+- Kaggle result in the top 10%
+A traditional résumé filter may rank Candidate A higher.
+BeyondCV asks a different question:
+Who has stronger demonstrated evidence for the actual role?
+
+If Candidate B has a high competence score and a large positive Delta, BeyondCV surfaces that candidate and explains which evidence contributed to the result.
+📊 Undervalued Skills Insights
+BeyondCV can generate anonymous, aggregate views of skills that appear undervalued across:
+- Regions
+- College tiers
+- Candidate populations
+Small groups are suppressed to reduce the possibility of identifying individuals.
+🌍 Real-World Impact
+Area	Impact
+⚖️ Fairer Hiring	Gives candidates from lower-tier institutions and smaller regions a stronger way to be evaluated on demonstrated ability
+🔎 Better Talent Discovery	Helps recruiters discover candidates conventional filters may reject
+⏱️ Less Manual Screening	Replaces repetitive evidence checking with structured, summarised evidence
+🎓 Curriculum Alignment	Shows institutions which skills their students demonstrate
+🔍 Transparency	Decision-support outputs can be explained and audited
+
 
 🛠️ Tech Stack
-Backend
+Backend & API
 <p>
-  <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white">
-  <img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white">
-  <img src="https://img.shields.io/badge/Django%20REST%20Framework-A30000?style=for-the-badge&logo=django&logoColor=white">
-  <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white">
+  <img src="https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white" alt="Django">
+  <img src="https://img.shields.io/badge/Django%20REST%20Framework-A30000?style=for-the-badge&logo=django&logoColor=white" alt="Django REST Framework">
+  <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT">
 </p>
 
-Component	Technology
+Layer	Technology
 Language	Python
 Backend	Django
 API	Django REST Framework
 Authentication	JWT
 
 
-Database & Background Processing
+Database & Async Processing
 <p>
-  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white">
-  <img src="https://img.shields.io/badge/Celery-37814A?style=for-the-badge&logo=celery&logoColor=white">
-  <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white">
+  <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
+  <img src="https://img.shields.io/badge/Celery-37814A?style=for-the-badge&logo=celery&logoColor=white" alt="Celery">
+  <img src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" alt="Redis">
 </p>
 
-Component	Technology
+Layer	Technology
 Database	PostgreSQL
 Async processing	Celery
-Cache / message broker	Redis
+Message broker / cache	Redis
 
 
-ML / NLP
+ML / NLP / Data
 <p>
-  <img src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white">
-  <img src="https://img.shields.io/badge/Sentence--Transformers-FF6F00?style=for-the-badge&logo=huggingface&logoColor=white">
-  <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white">
+  <img src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="scikit-learn">
+  <img src="https://img.shields.io/badge/Sentence--Transformers-FF6F00?style=for-the-badge&logo=huggingface&logoColor=white" alt="Sentence Transformers">
+  <img src="https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white" alt="Pandas">
 </p>
 
-Component	Technology
+Area	Technology
 Machine Learning	scikit-learn
 Semantic analysis	sentence-transformers
 Data processing	pandas
+Regression	scikit-learn
 
 
 Infrastructure
 <p>
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
-  <img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white">
-  <img src="https://img.shields.io/badge/Gunicorn-499848?style=for-the-badge&logo=gunicorn&logoColor=white">
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+  <img src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white" alt="Nginx">
+  <img src="https://img.shields.io/badge/Gunicorn-499848?style=for-the-badge&logo=gunicorn&logoColor=white" alt="Gunicorn">
 </p>
 
-Component	Technology
+Area	Technology
 Containerisation	Docker Compose
 Reverse proxy	Nginx
 Application server	Gunicorn
 
 
-📊 Impact
-Area	Expected Impact
-⚖️ Fairer hiring	Expands the pool beyond traditional pedigree signals
-🔎 Talent discovery	Helps recruiters find overlooked candidates
-⏱️ Screening efficiency	Structures evidence that would otherwise require manual checking
-🎓 Workforce insights	Helps identify skills demonstrated across different candidate groups
-🔍 Transparency	Makes candidate scoring easier to inspect and explain
+Frontend: The current project description does not specify a final frontend technology. Add the actual frontend stack here once it is fixed.
+
+🧩 Technology Overview
+                    ┌──────────────────────┐
+                    │      Frontend        │
+                    │   Candidate / HR UI  │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │   Django REST API    │
+                    │        + JWT         │
+                    └──────────┬───────────┘
+                               │
+             ┌─────────────────┼──────────────────┐
+             │                 │                  │
+             ▼                 ▼                  ▼
+       PostgreSQL           Celery              Redis
+             │                 │
+             │                 ▼
+             │        Background ingestion
+             │
+             └─────────────────┐
+                               ▼
+                    ┌──────────────────────┐
+                    │   ML / NLP Layer     │
+                    │                      │
+                    │ scikit-learn         │
+                    │ sentence-transformers│
+                    │ pandas               │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │ Competence / Delta / │
+                    │ Role-Fit / Ranking   │
+                    └──────────────────────┘
+🔗 Evidence Sources
+BeyondCV is designed around evidence that can be checked rather than relying only on résumé claims.
+Platform	Evidence
+GitHub	Code repositories, activity, languages and project documentation
+Kaggle	Competition performance
+NPTEL	Certificate verification
+Coursera	Certificate verification
 
 
-🔮 Future Roadmap
-Evidence
-- Stronger GitHub ownership verification
-- Stronger Kaggle verification
-- Stronger certificate verification
-- Additional evidence sources
-Intelligence
-- Skill-gap analysis
-- Role-specific learning recommendations
-- Career recommendations based on market demand
-Fairness & Scale
-- Train the pedigree baseline on a representative real-world dataset
-- Perform fairness audits on Delta and ranking
-- Expand evidence sources to platforms such as LeetCode, Codeforces, LinkedIn, and research publications
-⚠️ Current Limitations
-- The pedigree baseline currently relies on a small synthetic sample.
-- Competence scoring uses transparent heuristics that require validation against real hiring outcomes.
-- Some candidate information may be self-reported.
-- Kaggle and certificate ownership verification is currently partial.
-These limitations should be addressed before using the system for consequential employment decisions.
-📁 Repository
+🔐 Ethics, Privacy & Fairness
+BeyondCV is a decision-support system, not an autonomous hiring system.
+Consent by default
+Candidate information should not become visible to recruiters without candidate consent.
+Right to erasure
+Candidates can delete their account and linked data.
+Pedigree isolation
+College and employer information are used for the baseline model only, not for competence scoring.
+Explainability
+The system should provide an understandable reason behind its outputs.
+Privacy-safe aggregation
+Aggregate insights should suppress small groups so individuals cannot be inferred.
+Human in the loop
+Recruiters make the final hiring decision.
+BeyondCV widens the pool of people a recruiter considers. It does not make the hiring decision on its own.
+
+⚠️ Security Considerations
+The platform includes safeguards around external data acquisition.
+- Safe third-party page fetching
+- Protection against server-side request forgery
+- Expiring caches for external data
+- Graceful handling of failed sources
+- Candidate consent controls
+- Data deletion support
+📁 Repository Structure
+The current project documentation identifies separate backend and frontend repositories:
 BeyondCV
 │
 ├── Backend
 │   ├── API
-│   ├── Data acquisition
+│   ├── Data ingestion
 │   ├── Evidence processing
 │   ├── Competence scoring
 │   └── Candidate ranking
 │
 └── Frontend
     └── Candidate / Recruiter interface
+🚀 Repositories
+Repository	Description
+Backend	API, ingestion pipeline, scoring and ranking
+Frontend	Candidate and recruiter interface
+
+
+Add the final repository URLs here once the frontend repository and deployment URLs are fixed.
+
 🎥 Demo
-Add project assets here:
+🚧 Demo assets can be added here.
+
 Asset	Link
 🎥 Demo Video	<add-link>
 🌐 Live Application	<add-link>
@@ -244,46 +357,62 @@ Asset	Link
 
 
 Screenshots
-Add screenshots of:
-- Candidate dashboard
-- Recruiter ranking
-- Candidate evidence
-- Delta / competence explanation
-- Aggregate insights
-🧠 Core Philosophy
-Traditional Hiring
-
-College
-   ↓
-Résumé
-   ↓
-Keywords
-   ↓
-Shortlist
+Candidate Dashboard	Recruiter Ranking	Insights
+<screenshot>	<screenshot>	<screenshot>
 
 
-BeyondCV
+⚠️ Current Limitations
+We want to be transparent about where the project currently stands.
+- The pedigree baseline is trained on a small synthetic sample.
+- Competence scoring uses transparent heuristics that still need validation against real hiring outcomes.
+- College tier and employer information are currently self-reported.
+- Kaggle and certificate ownership verification is partial.
+🔮 Future Roadmap
+Phase 1 — Stronger Evidence
+- Stronger Kaggle verification
+- Stronger certificate verification
+- More robust GitHub ownership verification
+Phase 2 — Skill Intelligence
+- Skill-gap analysis
+- Role-specific learning recommendations
+- Career recommendations driven by market demand
+Phase 3 — Fairness & Scale
+- Train the baseline on a real public dataset
+- Fairness audits of Delta and ranking
+- More evidence sources
+Potential future evidence sources include:
+- LeetCode
+- Codeforces
+- LinkedIn
+- Research papers
+💡 Core Philosophy
+Traditional Hiring:
+
+College → Résumé → Keywords → Shortlist
+
+
+BeyondCV:
 
 Actual Work
-   ↓
+     ↓
 Evidence
-   ↓
+     ↓
 Competence
-   ↓
+     ↓
 Role Fit + Delta
-   ↓
-Explainable Ranking
-   ↓
+     ↓
+Explainable Shortlist
+     ↓
 Human Decision
-📜 Disclaimer
-BeyondCV is a decision-support platform intended to help recruiters discover candidates who may be overlooked by conventional screening.
-It should not independently determine whether a candidate should be hired.
-Fairness claims, ranking methodology, and Delta values should be validated with representative real-world data before being used in consequential employment decisions.
+📜 Important Disclaimer
+BeyondCV is intended as a decision-support tool.
+It should help recruiters discover candidates who might otherwise be overlooked. It should not independently determine whether someone should be hired.
+The project's fairness claims and Delta values should be validated with representative real-world data before being used for consequential employment decisions.
 <p align="center">
   <strong>BeyondCV</strong><br>
   <em>Because talent is everywhere. Opportunity should be too.</em>
 </p>
 
 <p align="center">
-  Built with 🐍 Python · Django · PostgreSQL · ML/NLP
+  Built with 🐍 Python · Django · PostgreSQL · ML/NLP · Evidence
 </p>
