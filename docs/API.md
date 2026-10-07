@@ -21,7 +21,7 @@ Errors use `success: false`, an `error` object with `code`, `message`, and `deta
 - `POST /candidates/me/evidence/`: `{ "source":"github", "handle":"octocat" }`; response issues the ownership challenge code. Certificates use `source: "certificate"` and an allowlisted `url`. Kaggle `handle` is `competition-slug:team-name`.
 - `PATCH|DELETE /candidates/me/evidence/{id}/`: edit a locator or delete owned evidence; changing a locator invalidates cached snapshots and creates a fresh GitHub challenge code.
 - `GET /candidates/{id}/score/`: self or recruiter viewing a consenting candidate; returns competence, baseline, delta, baseline provenance, source breakdown and failures.
-- `POST /ingestion/jobs/`: candidate with consent. Returns HTTP 202 and `{ "job_id": 1, "status":"PENDING" }`.
+- `POST /ingestion/jobs/`: candidate with consent. Returns HTTP 202 and `{ "job_id": 1, "status":"PENDING" }`. Pass `{ "refresh": true }` to bypass cached source snapshots and fetch current upstream data; explicit refreshes are limited to once per `INGESTION_MIN_REFRESH_MINUTES` (10 by default). Ordinary requests reuse snapshots until `SIGNAL_TTL_HOURS` expires.
 - `GET /ingestion/jobs/{id}/`: owner/admin polls `PENDING`, `RUNNING`, `SUCCESS`, or `FAILED`.
 
 Example ranking entry:

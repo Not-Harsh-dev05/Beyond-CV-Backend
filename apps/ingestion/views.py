@@ -1,6 +1,10 @@
 """Thin API views for ingestion job creation and polling."""
 
+from datetime import timedelta
+
+from django.conf import settings
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from apps.accounts.permissions import IsCandidateOwner
@@ -9,6 +13,13 @@ from apps.candidates.models import CandidateProfile
 from .models import IngestionJob
 from .services import create_ingestion_job
 from .tasks import run_ingestion
+
+
+def _truthy(value) -> bool:
+    """Interpret JSON booleans and common string forms of a flag."""
+    if isinstance(value, str):
+        return value.strip().lower() in ("1", "true", "yes")
+    return bool(value)
 
 
 class IngestionJobsView(APIView):
@@ -39,9 +50,25 @@ class IngestionJobsView(APIView):
                 status=403,
                 request=request,
             )
+        force_refresh = _truthy(request.data.get("refresh"))
+        if force_refresh:
+            cutoff = timezone.now() - timedelta(
+                minutes=settings.INGESTION_MIN_REFRESH_MINUTES
+            )
+            if IngestionJob.objects.filter(
+                user=request.user,
+                status=IngestionJob.Status.SUCCESS,
+                finished_at__gte=cutoff,
+            ).exists():
+                return failure(
+                    "refresh_too_soon",
+                    "Evidence was refreshed recently; try again in a few minutes.",
+                    status=429,
+                    request=request,
+                )
         job, created = create_ingestion_job(request.user)
         if created:
-            run_ingestion.delay(job.pk)
+            run_ingestion.delay(job.pk, force_refresh)
         return success(
             {"job_id": job.pk, "status": job.status}, status=202, request=request
         )
