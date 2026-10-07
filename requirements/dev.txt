@@ -6,3 +6,4 @@ factory-boy==3.3.3
 respx==0.22.0
 ruff==0.9.10
 black==25.1.0
+respx

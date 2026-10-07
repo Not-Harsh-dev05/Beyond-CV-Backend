@@ -21,4 +21,5 @@ urlpatterns = [
     path("api/v1/", include("apps.ranking.urls")),
     path("api/v1/insights/", include("apps.insights.urls")),
     path("api/v1/", include("apps.scoring.urls")),
+    path("", include("django_prometheus.urls")),
 ]

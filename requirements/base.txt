@@ -16,3 +16,4 @@ torch==2.6.0+cpu
 gunicorn==23.0.0
 whitenoise==6.9.0
 psycopg[binary]==3.2.6
+django-prometheus==2.5.0

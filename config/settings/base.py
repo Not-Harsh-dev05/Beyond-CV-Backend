@@ -28,8 +28,10 @@ INSTALLED_APPS = [
     "apps.jobs",
     "apps.ranking",
     "apps.insights",
+    "django_prometheus",
 ]
 MIDDLEWARE = [
+    "django_prometheus.middleware.PrometheusBeforeMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "apps.core.cors.CORSMiddleware",
@@ -40,6 +42,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "apps.core.middleware.RequestMetadataMiddleware",
+    "django_prometheus.middleware.PrometheusAfterMiddleware",
 ]
 ROOT_URLCONF = "config.urls"
 TEMPLATES = [
