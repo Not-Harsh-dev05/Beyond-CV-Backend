@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import environ
+from celery.schedules import crontab
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 env = environ.Env(DEBUG=(bool, False), ALLOWED_HOSTS=(list, ["localhost", "127.0.0.1"]))
@@ -114,8 +115,15 @@ CELERY_TASK_SOFT_TIME_LIMIT = 240
 CELERY_TASK_ACKS_LATE = True
 CELERY_TASK_REJECT_ON_WORKER_LOST = True
 CELERY_TASK_ALWAYS_EAGER = False
-CELERY_BEAT_SCHEDULE = {}
+CELERY_BEAT_SCHEDULE = {
+    "reap-stale-ingestion-jobs": {
+        "task": "apps.ingestion.tasks.reap_stale_ingestion_jobs",
+        "schedule": crontab(minute="*/5"),
+    },
+}
 SIGNAL_TTL_HOURS = env.int("SIGNAL_TTL_HOURS", default=24)
+INGESTION_STALE_MINUTES = env.int("INGESTION_STALE_MINUTES", default=30)
+INGESTION_MIN_REFRESH_MINUTES = env.int("INGESTION_MIN_REFRESH_MINUTES", default=10)
 UNVERIFIED_SIGNAL_WEIGHT = env.float("UNVERIFIED_SIGNAL_WEIGHT", default=0.65)
 VERIFICATION_ALLOWED_DOMAINS = env.list(
     "VERIFICATION_ALLOWED_DOMAINS",

@@ -42,3 +42,32 @@ def test_ingestion_task_reports_zero_source_failure(monkeypatch):
     job.refresh_from_db()
     assert job.status == IngestionJob.Status.FAILED
     assert "No evidence" in job.error
+
+
+@pytest.mark.django_db
+def test_permission_error_fails_without_retry(monkeypatch):
+    user = get_user_model().objects.create_user(
+        email="taskpermission@example.test",
+        username="taskpermission",
+        password="temporary-test-only",
+    )
+    CandidateProfile.objects.create(user=user, consent_given=True)
+    job = IngestionJob.objects.create(user=user, dedupe_key="task-permission")
+    calls = []
+
+    def reject(*_args, **_kwargs):
+        calls.append(True)
+        raise PermissionError("Candidate consent is required before ingestion.")
+
+    monkeypatch.setattr("apps.ingestion.tasks.process_candidate", reject)
+    run_ingestion.apply(args=[job.pk]).get()
+    job.refresh_from_db()
+
+    assert job.status == IngestionJob.Status.FAILED
+    assert "consent" in job.error.lower()
+    assert calls == [True]
+
+
+@pytest.mark.django_db
+def test_task_tolerates_deleted_job():
+    assert run_ingestion.apply(args=[987654]).get() is None
