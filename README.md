@@ -302,6 +302,23 @@ We want to be explicit about what the current system does not prove.
 - Kaggle and certificate ownership checks are partial.
 - Public evidence is an imperfect proxy for real-world ability.
 - Ranking should support, not replace, human judgment.
+
+## Current backend status
+
+The existing backend implements email/JWT authentication, candidate profiles
+and evidence links, asynchronous ingestion, score explanations, recruiter job
+roles and per-role ranking, aggregate insights, API documentation, and a
+dependency-aware health endpoint. The test suite covers these existing
+workflows; it does not mean the full BeyondCV target contract is implemented.
+
+The requested STUDENT/HR consent and leaderboard flow, Codeforces integration,
+LeetCode/NPTEL unavailable-provider interfaces, external job provider, and ML
+contract are not present yet. In particular, the current pedigree baseline
+uses a clearly identified synthetic-data fallback when no trained artifact is
+configured; do not use that fallback for production decisions. Docker Compose
+could not be verified in the audit environment because Docker was unavailable.
+See [docs/AUDIT.md](docs/AUDIT.md) for the full Phase 0 inventory and checks.
+
 Roadmap
 Next
 - [ ] Replace synthetic baseline data with a representative public dataset
